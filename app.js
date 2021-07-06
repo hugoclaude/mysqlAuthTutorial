@@ -1,10 +1,10 @@
-import express from 'express';
-import mysql from "mysql";
+const express = require("express");
+const mysql = require("mysql");
 
 const app = express();
 
-const db = mysql.createConnection({
     // change to IP address once added to heroku
+const db = mysql.createConnection({
     host: localhost,
     user: 'root',
     password: '',
