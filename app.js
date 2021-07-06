@@ -1,15 +1,25 @@
-const express = require("express");
-const mysql = require("mysql");
+const express = require('express');
+const path = require('path');
+const mysql = require('mysql');
+const dotenv = require('dotenv');
+
+dotenv.config({path:'./.env'});
 
 const app = express();
 
     // change to IP address once added to heroku
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'nodejs-login',
-})
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABSE,
+});
+
+const publicDirectory = path.join(__dirname, './public' )
+//console.log(__dirname);
+app.use(express.static(publicDirectory));
+
+app.set('view engine', 'hbs');
 
 db.connect( (error) => {
      if(error) {
@@ -22,7 +32,8 @@ db.connect( (error) => {
 // http://localhost/phpmyadmin/ 
 
 app.get("/", (req, res) => {
-    res.send("<h1>Home page</h1>")
+    //res.send("<h1>Home page</h1>")
+    res.render('index');
 });
 
 app.listen(8008, () => {
