@@ -5,13 +5,13 @@ const app = express();
 
     // change to IP address once added to heroku
 const db = mysql.createConnection({
-    host: localhost,
+    host: 'localhost',
     user: 'root',
     password: '',
     database: 'nodejs-login',
 })
 
-db.connect((error) => {
+db.connect( (error) => {
      if(error) {
          console.log(error)
      } else {
@@ -25,6 +25,6 @@ app.get("/", (req, res) => {
     res.send("<h1>Home page</h1>")
 });
 
-app.listen(8000, () => {
-    console.log("Server started on port 8000");
+app.listen(8008, () => {
+    console.log("Server started on port 8008");
 })
