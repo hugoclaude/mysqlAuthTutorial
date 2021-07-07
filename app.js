@@ -7,7 +7,6 @@ dotenv.config({path:'./.env'});
 
 const app = express();
 
-    // change to IP address once added to heroku
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
@@ -34,6 +33,11 @@ db.connect( (error) => {
 app.get("/", (req, res) => {
     //res.send("<h1>Home page</h1>")
     res.render('index');
+});
+
+app.get("/register", (req, res) => {
+    //res.send("<h1>Home page</h1>")
+    res.render('register');
 });
 
 app.listen(8008, () => {
