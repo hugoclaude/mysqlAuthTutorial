@@ -15,11 +15,14 @@ const db = mysql.createConnection({
 });
 
 const publicDirectory = path.join(__dirname, './public' )
-//console.log(__dirname);
 app.use(express.static(publicDirectory));
 
-app.set('view engine', 'hbs');
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded({ extended: false }));
+// Parse JSON bodies (as send by API clients)
+app.use(express.json());
 
+app.set('view engine', 'hbs');
 db.connect( (error) => {
      if(error) {
          console.log(error)
@@ -30,15 +33,9 @@ db.connect( (error) => {
 
 // http://localhost/phpmyadmin/ 
 
-app.get("/", (req, res) => {
-    //res.send("<h1>Home page</h1>")
-    res.render('index');
-});
-
-app.get("/register", (req, res) => {
-    //res.send("<h1>Home page</h1>")
-    res.render('register');
-});
+// Define Routes
+app.use('/', require('./routes/pages'));
+app.use('/auth', require('./routes/auth'));
 
 app.listen(8008, () => {
     console.log("Server started on port 8008");
