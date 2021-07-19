@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mysql = require('mysql');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
 dotenv.config({path:'./.env'});
 
@@ -21,8 +22,10 @@ app.use(express.static(publicDirectory));
 app.use(express.urlencoded({ extended: false }));
 // Parse JSON bodies (as send by API clients)
 app.use(express.json());
+app.use(cookieParser());
 
 app.set('view engine', 'hbs');
+
 db.connect( (error) => {
      if(error) {
          console.log(error)
