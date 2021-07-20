@@ -14,4 +14,15 @@ router.get('./login', (req, res) => {
     res.render('login');
 });
 
+router.get('/profile', authController.isLoggedIn, (req, res) => {
+    console.log(req.user);
+    if( req.user ) {
+        res.render('profile', {
+            user: req.user
+        });
+    } else {
+        res.redirect('/login');
+    }
+})
+
 module.exports = router;
